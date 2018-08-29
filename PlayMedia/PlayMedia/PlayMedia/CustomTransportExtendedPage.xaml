@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:video="clr-namespace:FormsVideoLibrary"
+             x:Class="PlayMedia.CustomTransportExtendedPage"
+             Title="Custom Transport Extended">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <video:VideoPlayer x:Name="videoPlayer"
+                           Grid.Row="0"
+                           AreTransportControlsEnabled="False"
+                           Source="{StaticResource ElephantsDream}" />
+
+        <ActivityIndicator Grid.Row="0"
+                           Color="Gray"
+                           IsVisible="False">
+            <ActivityIndicator.Triggers>
+                <DataTrigger TargetType="ActivityIndicator"
+                             Binding="{Binding Source={x:Reference videoPlayer}, 
+                                               Path=Status}"
+                             Value="{x:Static video:VideoStatus.NotReady}">
+                    <Setter Property="IsVisible" Value="True" />
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
+
+        <StackLayout Grid.Row="1"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     Margin="10, 0"
+                     Padding="0"
+                     Spacing="0"
+                     
+                     BindingContext="{x:Reference videoPlayer}">
+            
+                    <Label Text="{Binding Path=Position,
+                                  StringFormat='{0:hh\\:mm\\:ss}'}"
+                   HorizontalOptions="Start"
+                   VerticalTextAlignment="Center"
+                   VerticalOptions="Center"
+                   FontSize="Micro"/>
+
+                    <Button Image="rewindten32.png"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                            Scale="0.5"
+                    Clicked="OnRewindButtonClicked">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Image="stop32.png"
+                            Scale="0.5"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnStopButtonClicked">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Image="play32.png"
+                            Scale="0.5"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnPlayPauseButtonClicked">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.Playing}">
+                                <Setter Property="Image" Value="pause32.png" />
+                            </DataTrigger>
+
+                            <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Image="forwardten32.png"
+                            Scale="0.5"
+                   HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnForwardButtonClicked">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Label Text="{Binding Path=TimeToEnd,
+                                  StringFormat='{0:hh\\:mm\\:ss}'}"
+                   VerticalOptions="Center"
+                   FontSize="Micro"/>
+
+        </StackLayout>
+
+        <StackLayout Grid.Row="2"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     Margin="10, 0"  
+                     Padding="0"                   
+                     Spacing="0"
+                     BindingContext="{x:Reference videoPlayer}">
+            
+
+            <Button Image="lastframe32.png"
+                    Scale="0.5"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"                    
+                    Clicked="OnLastFrameButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button Image="nextframe32.png"
+                    Scale="0.5"
+                   HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnNextFrameButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button Image="speedreduce32.png"
+                    Scale="0.5"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnReduceSpeedRateButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Label Text="Speed"
+                   HorizontalOptions="Start" 
+                   VerticalOptions="Center"
+                   FontSize="Micro"/>
+
+            <Button Image="speedincrease32.png"
+                    Scale="0.5"
+                   HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnIncreaseSpeedRateButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button Image="speaker32.png"
+                    Scale="0.5"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    BorderColor="Transparent"
+                BackgroundColor="Transparent"
+                    Clicked="OnToggleSpeakerButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button"
+                                 BindingContext="{x:Reference videoPlayer}"
+                                 Binding="{Binding IsMuted}"
+                                 Value="True">
+                        <Setter Property="Image" Value="mute32.png" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+        </StackLayout>
+        <video:PositionSlider Grid.Row="3"
+                              Margin="10, 0, 10, 10"
+                              BindingContext="{x:Reference videoPlayer}"
+                              Duration="{Binding Duration}"           
+                              Position="{Binding Position}">
+            <video:PositionSlider.Triggers>
+                <DataTrigger TargetType="video:PositionSlider"
+                             Binding="{Binding Status}"
+                             Value="{x:Static video:VideoStatus.NotReady}">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </video:PositionSlider.Triggers>
+        </video:PositionSlider>
+    </Grid>
+</ContentPage>
+    
+    
