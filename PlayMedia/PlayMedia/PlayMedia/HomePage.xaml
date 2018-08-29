@@ -8,7 +8,7 @@
     <TableView Intent="Menu">
         <TableRoot>
             <TableSection>
-                <TextCell Text="VIDEOPLAYER: Custom Transport Extended"
+                <TextCell Text="PLAYMEDIA: Custom Transport Extended"
                           Detail="Play a video with custom Play and Pause buttons"
                           Command="{Binding NavigateCommand}"
                           CommandParameter="{x:Type local:CustomTransportExtendedPage}" />
