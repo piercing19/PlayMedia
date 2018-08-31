@@ -59,7 +59,7 @@ namespace FormsVideoLibrary
             set { SetValue(AutoPlayProperty, value); }
             get { return (bool)GetValue(AutoPlayProperty); }
         }
-
+        
         // Status read-only property
         private static readonly BindablePropertyKey StatusPropertyKey =
             BindableProperty.CreateReadOnly(nameof(Status), typeof(VideoStatus), typeof(VideoPlayer), VideoStatus.NotReady);
@@ -202,7 +202,7 @@ namespace FormsVideoLibrary
             }
             else
             {
-                Toast("Mute");
+                Toast("Volume OFF");
             }
             ToggleSpeakerRequested?.Invoke(this, EventArgs.Empty);
         }
@@ -221,8 +221,8 @@ namespace FormsVideoLibrary
         {
             Toast((PlayBackRate + 0.25) + "x Speed");
             IncreaseSpeedRateRequested?.Invoke(this, EventArgs.Empty);
-        }
-
+        }     
+        
         #endregion
 
         #region SETTINGS
