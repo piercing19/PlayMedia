@@ -214,20 +214,7 @@ namespace FormsVideoLibrary.Droid
         // Event handlers to implement methods
         void OnPlayRequested(object sender, EventArgs args)
         {
-            try
-            {
-                videoView.Start();
-                throw new Exception();
-            }
-            catch (Exception exception)
-            {
-                var properties = new Dictionary<string, string> {
-                    { "Category", "Music" },
-                    { "Wifi", "On" }
-                };
-                Crashes.TrackError(exception, properties);
-            }
-            
+            videoView.Start();      
         }
 
         void OnPauseRequested(object sender, EventArgs args)

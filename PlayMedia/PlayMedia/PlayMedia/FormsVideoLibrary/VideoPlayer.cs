@@ -1,5 +1,7 @@
 ﻿using Acr.UserDialogs;
+using Microsoft.AppCenter.Crashes;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -172,8 +174,22 @@ namespace FormsVideoLibrary
 
         public void ForwardTen()
         {
-            Toast("+10 seconds");
-            ForwardTenRequested?.Invoke(this, EventArgs.Empty);
+            try
+            {
+
+                Toast("+10 seconds");
+                ForwardTenRequested?.Invoke(this, EventArgs.Empty);
+                throw new Exception();
+            }
+            catch (Exception exception)
+            {
+                var properties = new Dictionary<string, string> {
+                    { "Category", "Music" },
+                    { "Wifi", "On" }
+                };
+                Crashes.TrackError(exception, properties);
+            }
+            
         }
 
         public event EventHandler LastFrameRequested;
