@@ -8,6 +8,8 @@ using ARelativeLayout = Android.Widget.RelativeLayout;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using System.Collections.Generic;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: ExportRenderer(typeof(FormsVideoLibrary.VideoPlayer),
                           typeof(FormsVideoLibrary.Droid.VideoPlayerRenderer))]
@@ -212,7 +214,20 @@ namespace FormsVideoLibrary.Droid
         // Event handlers to implement methods
         void OnPlayRequested(object sender, EventArgs args)
         {
-            videoView.Start();
+            try
+            {
+                videoView.Start();
+                throw new Exception();
+            }
+            catch (Exception exception)
+            {
+                var properties = new Dictionary<string, string> {
+                    { "Category", "Music" },
+                    { "Wifi", "On" }
+                };
+                Crashes.TrackError(exception, properties);
+            }
+            
         }
 
         void OnPauseRequested(object sender, EventArgs args)
